@@ -1,4 +1,4 @@
-package com.rabbitmq.hellomessagequeue.step0;
+package com.rabbitmq.hellomessagequeue.step1;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ public class Sender {
     }
 
     public void send(String message) {
-        rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_NAME, message);
+        //rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_NAME, message);
         System.out.println("[#] Sent : " + message);
     }
 }
