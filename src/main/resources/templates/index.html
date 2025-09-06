@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RabbitMQ Sample</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<h1>Notifications</h1>
+<div id="notifications"></div>
+
+<form id="notificationForm">
+    <input type="text" id="notificationMessage" placeholder="입력하세요" required />
+    <button type="submit">전송</button>
+</form>
+<script>
+    const socket = new SockJS('/ws');
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, function() {
+        console.log('Connected to WebSocket');
+        // 서버로부터 메시지 구독
+        stompClient.subscribe('/topic/notifications', function(message) {
+            const notificationsDiv = document.getElementById('notifications');
+            const newNotification = document.createElement('div');
+            newNotification.textContent = message.body;
+            notificationsDiv.append(newNotification);
+        });
+        // 서버로 전송도 가능
+        const form = document.getElementById('notificationForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const messageInput = document.getElementById('notificationMessage');
+            const message = messageInput.value;
+
+            stompClient.send('/app/send', {}, JSON.stringify({ message: message }));
+            messageInput.value = '';
+        });
+
+    });
+</script>
+</body>
+</html>

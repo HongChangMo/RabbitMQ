@@ -1,3 +1,4 @@
+/*
 package com.rabbitmq.hellomessagequeue.step2;
 
 import com.rabbitmq.hellomessagequeue.step1.Receiver;
@@ -39,3 +40,4 @@ public class RabbitMQConfig {
         return new MessageListenerAdapter(workQueueTask, "workQueueTask");
     }
 }
+*/
