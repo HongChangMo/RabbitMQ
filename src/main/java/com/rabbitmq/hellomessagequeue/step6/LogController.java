@@ -1,4 +1,4 @@
-package com.rabbitmq.hellomessagequeue.step5;
+package com.rabbitmq.hellomessagequeue.step6;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
